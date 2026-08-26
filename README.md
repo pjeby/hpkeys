@@ -27,7 +27,7 @@ The original 2000-ish `C:\hp\kbd\kbd.exe` utility read those reports itself; HPK
 
 ## Installation
 
-1. Copy `HPKeys.exe` (or `HPKeys.ahk` and `HPKeys.ico`), and optionally `HPKeys.ini` to a **writable** folder — e.g. `%LOCALAPPDATA%\Programs\HPKeys`. Do *not* use `Program Files`: the configuration file is written next to the program.
+1. Copy `HPKeys.exe` (or `HPKeys.ahk` if Windows smart-screen blocks the .exe) to a **writable** folder — e.g. `%LOCALAPPDATA%\Programs\HPKeys`. Do *not* use `Program Files`: the configuration file is written next to the program. No other files are needed — the icon and the default configuration are embedded in the executable.
 2. Run it. On first start it creates `HPKeys.ini` (named after the executable) with every option present and documented.
 3. Optional: tray icon right-click → **Run at startup**.
 
@@ -62,12 +62,7 @@ The complete list of buttons supported by the script can be found in the default
 
 ## Building from source
 
-Compile `HPKeys.ahk` with **Ahk2Exe**, base file **Unicode 32-bit**, icon
-`HPKeys.ico`. The runtime falls back to a programmatically drawn tray icon if no `.ico` is present next to (or built into) the executable.  Command line:
-
-```shell
-ahk2exe /in HPKeys.ahk /icon HPKeys.ico /out HPKeys.exe
-```
+Run **`build.ahk`** (with AutoHotkey v1.1 Unicode, i.e. `AutohotkeyU64.exe`). It embeds `defaults.ini` (the default configuration offered to fresh installs) and `HPKeys.ico` (used for the tray icon when no external `.ico` sits next to the uncompiled .ahk) into `HPKeys.ahk`, then compiles `HPKeys.exe` with Ahk2Exe (Unicode 32-bit base). Stop any running HPKeys.exe first — the exe cannot be overwritten while running. To change what new installs get by default, edit `defaults.ini` (not your live `HPKeys.ini`) and rebuild.
 
 ## Different keyboard?
 

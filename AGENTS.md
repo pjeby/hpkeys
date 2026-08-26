@@ -6,6 +6,8 @@ Audience: AI agents or engineers adapting HPKeys to another multimedia keyboard.
 
 `HPKeys.ahk` (AutoHotkey v1.1 Unicode) turns the extra buttons of the HP SK-2506U multimedia keyboard into configurable actions (`run` / `url` / `send` / `eject`), with an on-screen label display, tray menu, and a plain INI config.  It is a clean-room replacement for the 2001 HP/Netropa `C:\hp\kbd\kbd.exe`.
 
+Repo layout: `HPKeys.ahk` (source, contains build-generated marker blocks embedding the default config and the tray icon), `defaults.ini` (source of the embedded default config), `HPKeys.ico` (icon source), `build.ahk` (re-embeds both into `HPKeys.ahk` and compiles `HPKeys.exe` via Ahk2Exe), `hidlog.ahk` (HID capture tool, see below).
+
 ## How it works
 
 1. **Raw Input registration.** At startup the script registers for raw HID input on usage page `0xFF7F`, usage `0x0001` (the keyboard's vendor-defined top-level collection) with `RIDEV_INPUTSINK`, targeting a hidden GUI window (`RIDEV_INPUTSINK` requires a valid hwnd — an anonymous/NULL target fails).
@@ -55,7 +57,6 @@ matches the device, set `WATCH_ALL := true` and rerun.
    - If the encoding is not a one-hot bitmask, adapt the decode loop in
      `OnWM_INPUT` accordingly.
    - Update the report-layout comment in the file header.
-7. Verify: set `Debug = 1` in `HPKeys.ini` — each press shows a tooltip with the decoded name and raw hex; then update the default template in
-`WriteDefaultIni()` if button names changed.
+7. Verify: set `Debug = 1` in `HPKeys.ini` — each press shows a tooltip with the decoded name and raw hex; then update `defaults.ini` and run `build.ahk` if button names changed (it re-embeds the default config and rebuilds the exe).
 
 `HPKeys.ini` is a generated file — safe to delete to regenerate; users' edits are the source of truth once it exists.

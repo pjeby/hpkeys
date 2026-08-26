@@ -1,0 +1,39 @@
+name: Build & Release
+
+on:
+  push:
+    tags: ["*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install AutoHotkey v1.1
+        run: choco install autohotkey.install --version=1.1.37.1 --yes --no-progress
+
+      - name: Build HPKeys.exe
+        shell: pwsh
+        run: |
+          $ahk = (Get-ItemProperty 'HKLM:\SOFTWARE\AutoHotkey' -ErrorAction SilentlyContinue).InstallDir
+          if (-not $ahk) { throw "AutoHotkey install not found (registry InstallDir missing)" }
+          $p = Start-Process -FilePath "$ahk\AutoHotkeyU64.exe" -ArgumentList '/ErrorStdOut', "$env:GITHUB_WORKSPACE\build.ahk" -Wait -PassThru -NoNewWindow
+          exit $p.ExitCode
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HPKeys
+          path: HPKeys.exe
+
+      - name: Create release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: HPKeys.exe
