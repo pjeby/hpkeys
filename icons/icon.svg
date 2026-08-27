@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- HPKeys tray icon - HP SK-2506U per the real-keyboard photo: blue wrap
+       (top strip + side rails, ending above the bottom), single grey deck that
+       protrudes below the wrap as the palm rest, main/nav/numpad key sections,
+       numpad keys in blue, dot strip and volume knob on the top strip.
+       Palette kept from v1: wrap #355CA8, deck/wells greys, keys #EDF0F4. -->
+  <g transform="translate(0,4)">
+    <!-- white sticker backing (wrap, deck - it protrudes, needs its own rim - and knob) -->
+    <g fill="#FFFFFF" stroke="#FFFFFF" stroke-linejoin="round">
+      <path stroke-width="9" d="M28 66 H226 Q242 66 242 82 V148 Q242 164 226 166 Q128 174 28 166 Q12 164 12 148 V82 Q12 66 28 66 Z"/>
+      <path stroke-width="7" d="M38 90 H218 Q230 90 230 102 V170 Q230 184 218 187 Q128 194 38 187 Q26 184 26 170 V102 Q26 90 38 90 Z"/>
+      <circle cx="214" cy="74" r="15" stroke-width="9"/>
+    </g>
+    <!-- blue wrap -->
+    <path fill="#355CA8" d="M28 66 H226 Q242 66 242 82 V148 Q242 164 226 166 Q128 174 28 166 Q12 164 12 148 V82 Q12 66 28 66 Z"/>
+    <!-- grey deck, protruding below the wrap -->
+    <path fill="#B7BFC7" d="M38 90 H218 Q230 90 230 102 V170 Q230 184 218 187 Q128 194 38 187 Q26 184 26 170 V102 Q26 90 38 90 Z"/>
+    <!-- dot strip on the wrap -->
+    <g fill="#CDD3DA">
+      <circle cx="38" cy="77" r="2.8"/><circle cx="49" cy="77" r="2.8"/><circle cx="60" cy="77" r="2.8"/>
+      <circle cx="71" cy="77" r="2.8"/><circle cx="82" cy="77" r="2.8"/><circle cx="93" cy="77" r="2.8"/>
+      <circle cx="104" cy="77" r="2.8"/><circle cx="115" cy="77" r="2.8"/><circle cx="126" cy="77" r="2.8"/>
+      <circle cx="137" cy="77" r="2.8"/>
+    </g>
+    <g fill="#D9DEE4">
+      <circle cx="147" cy="77" r="3.2"/><circle cx="156" cy="77" r="3.2"/><circle cx="165" cy="77" r="3.2"/>
+      <circle cx="174" cy="77" r="3.2"/><circle cx="183" cy="77" r="3.2"/>
+    </g>
+    <!-- left-edge buttons on the wrap rail -->
+    <g fill="#CDD3DA">
+      <circle cx="19" cy="100" r="3"/><circle cx="19" cy="116" r="3"/>
+      <circle cx="19" cy="132" r="3"/><circle cx="19" cy="148" r="3"/>
+    </g>
+    <!-- main key well -->
+    <rect x="32" y="96" width="120" height="72" rx="7" fill="#C9CFD6"/>
+    <g fill="#EDF0F4">
+      <rect x="38" y="101" width="8.4" height="11" rx="1.5"/><rect x="48" y="101" width="8.4" height="11" rx="1.5"/>
+      <rect x="58" y="101" width="8.4" height="11" rx="1.5"/><rect x="68" y="101" width="8.4" height="11" rx="1.5"/>
+      <rect x="78" y="101" width="8.4" height="11" rx="1.5"/><rect x="88" y="101" width="8.4" height="11" rx="1.5"/>
+      <rect x="98" y="101" width="8.4" height="11" rx="1.5"/><rect x="108" y="101" width="8.4" height="11" rx="1.5"/>
+      <rect x="118" y="101" width="8.4" height="11" rx="1.5"/><rect x="128" y="101" width="8.4" height="11" rx="1.5"/>
+      <rect x="138" y="101" width="8.4" height="11" rx="1.5"/>
+      <rect x="38" y="113.8" width="8.4" height="11" rx="1.5"/><rect x="48" y="113.8" width="8.4" height="11" rx="1.5"/>
+      <rect x="58" y="113.8" width="8.4" height="11" rx="1.5"/><rect x="68" y="113.8" width="8.4" height="11" rx="1.5"/>
+      <rect x="78" y="113.8" width="8.4" height="11" rx="1.5"/><rect x="88" y="113.8" width="8.4" height="11" rx="1.5"/>
+      <rect x="98" y="113.8" width="8.4" height="11" rx="1.5"/><rect x="108" y="113.8" width="8.4" height="11" rx="1.5"/>
+      <rect x="118" y="113.8" width="8.4" height="11" rx="1.5"/><rect x="128" y="113.8" width="8.4" height="11" rx="1.5"/>
+      <rect x="138" y="113.8" width="8.4" height="11" rx="1.5"/>
+      <rect x="38" y="126.6" width="8.4" height="11" rx="1.5"/><rect x="48" y="126.6" width="8.4" height="11" rx="1.5"/>
+      <rect x="58" y="126.6" width="8.4" height="11" rx="1.5"/><rect x="68" y="126.6" width="8.4" height="11" rx="1.5"/>
+      <rect x="78" y="126.6" width="8.4" height="11" rx="1.5"/><rect x="88" y="126.6" width="8.4" height="11" rx="1.5"/>
+      <rect x="98" y="126.6" width="8.4" height="11" rx="1.5"/><rect x="108" y="126.6" width="8.4" height="11" rx="1.5"/>
+      <rect x="118" y="126.6" width="8.4" height="11" rx="1.5"/><rect x="128" y="126.6" width="8.4" height="11" rx="1.5"/>
+      <rect x="138" y="126.6" width="8.4" height="11" rx="1.5"/>
+      <rect x="38" y="139.4" width="8.4" height="11" rx="1.5"/><rect x="48" y="139.4" width="8.4" height="11" rx="1.5"/>
+      <rect x="58" y="139.4" width="8.4" height="11" rx="1.5"/><rect x="68" y="139.4" width="8.4" height="11" rx="1.5"/>
+      <rect x="78" y="139.4" width="8.4" height="11" rx="1.5"/><rect x="88" y="139.4" width="8.4" height="11" rx="1.5"/>
+      <rect x="98" y="139.4" width="8.4" height="11" rx="1.5"/><rect x="108" y="139.4" width="8.4" height="11" rx="1.5"/>
+      <rect x="118" y="139.4" width="8.4" height="11" rx="1.5"/><rect x="128" y="139.4" width="8.4" height="11" rx="1.5"/>
+      <rect x="138" y="139.4" width="8.4" height="11" rx="1.5"/>
+      <!-- spacebar row -->
+      <rect x="38" y="152.2" width="68.4" height="11" rx="1.5"/>
+      <rect x="108" y="152.2" width="8.4" height="11" rx="1.5"/><rect x="118" y="152.2" width="8.4" height="11" rx="1.5"/>
+      <rect x="128" y="152.2" width="8.4" height="11" rx="1.5"/><rect x="138" y="152.2" width="8.4" height="11" rx="1.5"/>
+    </g>
+    <!-- nav cluster -->
+    <rect x="156" y="96" width="30" height="72" rx="6" fill="#C9CFD6"/>
+    <g fill="#EDF0F4">
+      <rect x="159.5" y="101" width="7" height="7.5" rx="1.2"/><rect x="168" y="101" width="7" height="7.5" rx="1.2"/>
+      <rect x="176.5" y="101" width="7" height="7.5" rx="1.2"/>
+      <rect x="159.5" y="110.5" width="7" height="7.5" rx="1.2"/><rect x="168" y="110.5" width="7" height="7.5" rx="1.2"/>
+      <rect x="176.5" y="110.5" width="7" height="7.5" rx="1.2"/>
+      <rect x="159.5" y="120" width="7" height="7.5" rx="1.2"/><rect x="168" y="120" width="7" height="7.5" rx="1.2"/>
+      <rect x="176.5" y="120" width="7" height="7.5" rx="1.2"/>
+      <rect x="159.5" y="129.5" width="7" height="7.5" rx="1.2"/><rect x="168" y="129.5" width="7" height="7.5" rx="1.2"/>
+      <rect x="176.5" y="129.5" width="7" height="7.5" rx="1.2"/>
+      <rect x="159.5" y="139" width="7" height="7.5" rx="1.2"/><rect x="168" y="139" width="7" height="7.5" rx="1.2"/>
+      <rect x="176.5" y="139" width="7" height="7.5" rx="1.2"/>
+    </g>
+    <!-- numpad: blue island on the deck, blue keys on a darker blue well -->
+    <rect x="190" y="96" width="40" height="84" rx="6" fill="#355CA8"/>
+    <rect x="194" y="100" width="32" height="72" rx="5" fill="#2B4C90"/>
+    <g fill="#5B82CE">
+      <rect x="195.5" y="108.3" width="6.2" height="9" rx="1.2"/><rect x="203.1" y="108.3" width="6.2" height="9" rx="1.2"/>
+      <rect x="210.7" y="108.3" width="6.2" height="9" rx="1.2"/><rect x="218.3" y="108.3" width="6.2" height="9" rx="1.2"/>
+      <rect x="195.5" y="119.9" width="6.2" height="9" rx="1.2"/><rect x="203.1" y="119.9" width="6.2" height="9" rx="1.2"/>
+      <rect x="210.7" y="119.9" width="6.2" height="9" rx="1.2"/><rect x="218.3" y="119.9" width="6.2" height="9" rx="1.2"/>
+      <rect x="195.5" y="131.5" width="6.2" height="9" rx="1.2"/><rect x="203.1" y="131.5" width="6.2" height="9" rx="1.2"/>
+      <rect x="210.7" y="131.5" width="6.2" height="9" rx="1.2"/><rect x="218.3" y="131.5" width="6.2" height="9" rx="1.2"/>
+      <rect x="195.5" y="143.1" width="6.2" height="9" rx="1.2"/><rect x="203.1" y="143.1" width="6.2" height="9" rx="1.2"/>
+      <rect x="210.7" y="143.1" width="6.2" height="9" rx="1.2"/><rect x="218.3" y="143.1" width="6.2" height="9" rx="1.2"/>
+      <rect x="195.5" y="154.7" width="6.2" height="9" rx="1.2"/><rect x="203.1" y="154.7" width="6.2" height="9" rx="1.2"/>
+      <rect x="210.7" y="154.7" width="6.2" height="9" rx="1.2"/><rect x="218.3" y="154.7" width="6.2" height="9" rx="1.2"/>
+    </g>
+    <!-- volume knob -->
+    <circle cx="214" cy="74" r="13" fill="#C7CDD4"/>
+    <circle cx="214" cy="74" r="10" fill="#3B414A"/>
+    <circle cx="211" cy="71" r="3" fill="#5A626C"/>
+  </g>
+</svg>

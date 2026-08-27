@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# makeicon - rebuild HPKeys.ico from the SVG sources in icons/.
+#
+# Requirements: ImageMagick 7 (magick on PATH).
+#   icon.svg        - detailed artwork, rendered at 32 px
+#   icon-small.svg  - simplified artwork, rendered at 24/16 px
+# The current HPKeys.ico is preserved once as HPKeys.ico.bak; the backup is
+# never overwritten by re-runs.
+#
+# Preview without building anything: open icon.svg / preview.svg in a browser.
+
+command -v magick &>/dev/null || { echo magick not found; exit 1; }
+
+if [[ ! -f HPKeys.ico.bak && -f HPKeys.ico ]]; then
+    mv HPKeys.ico HPKeys.ico.bak
+fi
+
+{
+    magick -background none -density 96 icons/icon.svg icon-256.png &&
+    magick icon-256.png -resize 32 icon-32.png &&
+    magick -background none -density 96 icons/icon-small.svg icon-small.png &&
+    for S in 24 16; do magick icon-small.png -resize $Sx$S icon-$S.png; done &&
+    rm -f HPKeys.ico &&
+    magick icon-32.png icon-24.png icon-16.png HPKeys.ico &&
+    rm -f icon-256.png icon-32.png icon-24.png icon-16.png icon-small.png &&
+
+    echo "HPKeys.ico rebuilt (32 from icon.svg, 24/16 from icon-small.svg)." &&
+    echo "Original preserved as HPKeys.ico.bak." &&
+    echo "Next: stop HPKeys.exe, then run build.ahk to re-embed the icon and recompile." &&
+    exit 0
+}
+
+echo "ImageMagick step failed."
+if [[ ! -f HPKeys.ico && -f HPKeys.ico.bak ]]; then mv HPKeys.ico.bak HPKeys.ico; fi
+exit 1

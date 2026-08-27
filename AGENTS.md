@@ -6,7 +6,7 @@ Audience: AI agents or engineers adapting HPKeys to another multimedia keyboard.
 
 `HPKeys.ahk` (AutoHotkey v1.1 Unicode) turns the extra buttons of the HP SK-2506U multimedia keyboard into configurable actions (`run` / `url` / `send` / `eject`), with an on-screen label display, tray menu, and a plain INI config.  It is a clean-room replacement for the 2001 HP/Netropa `C:\hp\kbd\kbd.exe`.
 
-Repo layout: `HPKeys.ahk` (source, contains build-generated marker blocks embedding the default config and the tray icon), `defaults.ini` (source of the embedded default config), `HPKeys.ico` (icon source), `build.ahk` (re-embeds both into `HPKeys.ahk` and compiles `HPKeys.exe` via Ahk2Exe), `hidlog.ahk` (HID capture tool, see below).
+Repo layout: `HPKeys.ahk` (source, contains build-generated marker blocks embedding the default config and the tray icon), `defaults.ini` (source of the embedded default config), `icons/` (vibe-authored SVG sources for the tray icon — `icon.svg` detailed artwork rendered at 32 px, `icon-small.svg` simplified variant for 24/16 px, `preview.svg` multi-scale review sheet), `makeIcon` (bash script that regenerates `HPKeys.ico` from the SVGs via ImageMagick), `HPKeys.ico` (generated tray icon: last-known-good kept as `HPKeys.ico.bak`), `build.ahk` (re-embeds both into `HPKeys.ahk` and compiles `HPKeys.exe` via Ahk2Exe), `hidlog.ahk` (HID capture tool, see below).
 
 ## How it works
 
@@ -26,6 +26,12 @@ mute per detent). Windows translates these natively; HPKeys never registers that
 | b2   | Find | Print | Fax | HP | — | Shortcut 1 | Shortcut 2 | Help |
 | b3   | E-Mail | People | Search | Connect | Finance | Entertainment | Shopping | — |
 
+## Icon pipeline
+
+`makeIcon` (bash, requires ImageMagick 7 on PATH) renders `icons/icon.svg` down to 32 px and `icons/icon-small.svg` at 24 and 16 px, packs the three PNGs into `HPKeys.ico` with `magick`, and preserves the previous icon once as `HPKeys.ico.bak` (the backup is never overwritten by re-runs; on any magick failure the backup is restored). To restyle the icon: edit the SVGs — `icons/preview.svg` shows the artwork at 1× down to 1/16 on light and dark backgrounds, open it in a browser — then run `./makeIcon`, stop `HPKeys.exe`, and run `build.ahk` to re-embed the icon and recompile.
+
+The 32 px ceiling is deliberate: `build.ahk` base64-embeds the entire .ico into a single AHK v1 continuation section, which fails to load with "Continuation section too long" once the base64 grows past ~16 KB (hit in practice when the icon also carried 48–256 px sizes). The tray only ever draws 16/24/32 px anyway, so larger entries buy nothing.
+
 ## Hard-won gotchas
 
 - Windows' `kbdhid` drops these vendor usages entirely — that is why keyboard hooks (AutoHotkey key history, PowerToys) see *nothing*. Only Raw Input or a direct `CreateFile`+`ReadFile` on the HID interface sees them.
@@ -35,6 +41,7 @@ skipped silently) — use a strings dump for static analysis.
 - The original utility's `usb.dll` matched a hardcoded whitelist (`VID_03F0&PID_020C`, `VID_03F0&PID_010C`, `VID_058F&PID_9254`) and read
 the device with overlapped `ReadFile`. The **PS/2** variant of this keyboard family works completely differently (kernel upper-filter driver `PS2.sys` with scancode remap tables) — out of scope for this project.
 - Raw Input registration is by usage page/usage, not device handle, so unplug/replug and sleep/resume need no re-registration; the per-handle device filter self-heals (unknown handle → queried and cached on arrival).
+- AHK v1 caps each continuation section at ~16 KB — see Icon pipeline for the concrete failure ("Continuation section too long" at the `IconB64Text()` block) and why the icon is generated at 32/24/16 px only.
 
 ## Porting to another keyboard
 
