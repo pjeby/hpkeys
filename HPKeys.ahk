@@ -80,6 +80,7 @@ if !DllCall("RegisterRawInputDevices", "Ptr", &rd, "UInt", 1, "UInt", cb)
     MsgBox, 48, HPKeys, Raw input registration failed (error %A_LastError%).
 
 OnMessage(WM_INPUT, "OnWM_INPUT")
+OnMessage(0x404, "OnTrayClick")                      ; tray icon callback: single left click
 return
 
 ;--- raw input handler (kept minimal: decode, enqueue, kick timer) -------------
@@ -242,6 +243,8 @@ BuildTray() {
     Menu, Tray, Tip, HPKeys (SK-2506U)
     Menu, Tray, Add, Edit config, MenuEdit
     Menu, Tray, Add, Reload config, MenuReload
+    if (!A_IsCompiled && FileExist(A_ScriptDir "\HPKeys.ahk") && FileExist(A_ScriptDir "\build.ahk"))
+        Menu, Tray, Add, Rebuild and restart, MenuRebuild
     Menu, Tray, Add, Pause button handling, MenuPause
     Menu, Tray, Add
     Menu, Tray, Add, Run at startup, MenuStartup
@@ -260,9 +263,53 @@ MenuEdit() {
 }
 
 MenuReload() {
+    ReloadConfigNow()
+}
+
+OnTrayClick(wParam, lParam) {
+    if (lParam = 0x202)                              ; WM_LBUTTONUP - single left click: reload
+        ReloadConfigNow()
+    else if (lParam = 0x203)                         ; WM_LBUTTONDBLCLK: open the config
+        MenuEdit()
+}
+
+ReloadConfigNow() {
     global
     LoadConfig()
-    TrayTip, HPKeys, Configuration reloaded., 1, 1
+    TrayNote("Configuration reloaded")
+}
+
+MenuRebuild() {
+    global
+    if !FileExist(A_ScriptDir "\defaults.ini") || !FileExist(A_ScriptDir "\HPKeys.ico")
+    {
+        TrayNote("Rebuild needs defaults.ini and HPKeys.ico next to the script.")
+        return
+    }
+    interp := A_AhkPath
+    mode := "ahk"
+    if !FileExist(interp)
+    {
+        TrayNote("Rebuild could not determine the AutoHotkey interpreter path.")
+        return
+    }
+    pid := DllCall("GetCurrentProcessId")
+    q := """"
+    cmd := q interp q " " q A_ScriptDir "\build.ahk" q " /relaunch " pid " " mode
+    Run, % cmd, %A_ScriptDir%, UseErrorLevel
+    if (UseErrorLevel = "ERROR")
+    {
+        TrayNote("Rebuild failed to launch build.ahk - see tooltip.")
+        ToolTip % "HPKeys rebuild: failed to launch:`n" cmd
+        SetTimer, TipClear, -5000
+        return
+    }
+    ExitApp
+}
+
+TrayNote(msg) {
+    ToolTip % "HPKeys: " msg
+    SetTimer, TipClear, -3500
 }
 
 MenuPause() {

@@ -22,6 +22,23 @@ IniSrc := A_ScriptDir "\defaults.ini"
 IcoSrc := A_ScriptDir "\HPKeys.ico"
 AhkSrc := A_ScriptDir "\HPKeys.ahk"
 ExeOut := A_ScriptDir "\HPKeys.exe"
+; /relaunch <pid> <ahk|exe>: invoked by HPKeys' "Rebuild and restart" tray
+; item - wait for the caller to exit, rebuild, then restart it (or restart
+; the old copy if the build fails).
+global RelaunchMode := false, RelaunchTarget := ""
+if (A_Args.Length() >= 3 && A_Args[1] = "/relaunch")
+{
+    RelaunchMode := true
+    if (A_Args[3] = "ahk")
+        RelaunchTarget := """" A_AhkPath """ """ AhkSrc """"
+    else
+        RelaunchTarget := """" ExeOut """"
+    Process, WaitClose, % A_Args[2] + 0, 15
+    if ErrorLevel
+        Fail("HPKeys (pid " A_Args[2] ") did not exit within 15s; aborting rebuild.")
+    Log("previous instance exited; rebuilding")
+}
+
 
 for i, f in [IniSrc, IcoSrc, AhkSrc]
     if !FileExist(f)
@@ -127,8 +144,13 @@ if !FileExist(ExeOut)
 FileGetSize, exeSize, %ExeOut%
 report .= "HPKeys.exe built (" exeSize " bytes, icon source " icoLen " bytes)."
 Log(report)
-if !ConMode
+if (!ConMode && !RelaunchMode)
     MsgBox, 64, build, %report%
+if RelaunchMode
+{
+    Log("relaunching " RelaunchTarget)
+    Run, % RelaunchTarget, %A_ScriptDir%
+}
 ExitApp, 0
 
 ; --- helpers ----------------------------------------------------------------------
@@ -139,10 +161,16 @@ Log(msg) {
 }
 
 Fail(msg) {
+    global RelaunchMode, RelaunchTarget
     if ConMode
         FileAppend, error: %msg%`n, **
     else
         MsgBox, 16, build, %msg%
+    if (RelaunchMode && RelaunchTarget != "")
+    {
+        Log("build failed - relaunching previous copy")
+        try Run, % RelaunchTarget, %A_ScriptDir%
+    }
     ExitApp, 1
 }
 

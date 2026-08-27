@@ -37,7 +37,7 @@ The original 2000-ish `C:\hp\kbd\kbd.exe` utility read those reports itself; HPK
 
 ## Usage
 
-The five media buttons are preconfigured; the other buttons are all no-ops until you map them.  Double-click the tray icon (or right-click and choose **Edit config**) to open `HPKeys.ini` in Notepad, then use **Reload config** from the tray menu after saving. Settings include the on-screen display (font, size, color, position, timeout), debug tooltips, and the tray icon source.
+The five media buttons are preconfigured; the other buttons are all no-ops until you map them.  Double-click the tray icon (or right-click and choose **Edit config**) to open `HPKeys.ini` in Notepad to make changes.  Then use **Reload config** from the tray menu (or single-click the tray icon) to apply the changed settings. Settings include the on-screen display (font, size, color, position, timeout), debug tooltips, and the tray icon source.
 
 Each button gets one line in `[Buttons]` with a verb:
 
@@ -63,6 +63,8 @@ The complete list of buttons supported by the script can be found in the default
 ## Building from source
 
 Run **`build.ahk`** (with AutoHotkey v1.1 Unicode, i.e. `AutohotkeyU64.exe`). It embeds `defaults.ini` (the default configuration offered to fresh installs) and `HPKeys.ico` (used for the tray icon when no external `.ico` sits next to the uncompiled .ahk) into `HPKeys.ahk`, then compiles `HPKeys.exe` with Ahk2Exe (Unicode 32-bit base). Stop any running HPKeys.exe first — the exe cannot be overwritten while running. To change what new installs get by default, edit `defaults.ini` (not your live `HPKeys.ini`) and rebuild.
+
+During development, you can run the the uncompiled `HPKeys.ahk` file from within this repository, and use the **Rebuild and restart** tray menu item to regenerate the .ahk from defaults+icon (if needed), rebuild the .exe, and finally, reload the script.  If the build fails, the script restarts on the old code. (Compiled copies never show the rebuild menu item: rebuild those by hand with `build.ahk`.)
 
 ## Different keyboard?
 
