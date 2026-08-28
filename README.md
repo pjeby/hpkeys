@@ -1,10 +1,12 @@
+<img src="icons/icon-small.svg" align="right" width="80" height="80" alt="Stylized image of an HP Multimedia Keyboard" />
+
 # HPKeys - Softkey Mapper for HP Multimedia Keyboards
 
-A vibe-coded modern replacement for the HP/Netropa `KBD.EXE` keyboard utility, for the **HP SK-2506U multimedia keyboard** (HP Pavilion era, circa 2000 or so — USB, VID `03F0` / PID `020C`).
+A vibe-coded modern replacement for the HP/Netropa `KBD.EXE` keyboard utility, for the **HP SK-2506U multimedia keyboard** (HP Pavilion era, circa 2000 or so — USB, VID `03F0` / PID `020C`, Part number 5184-4708).
 
 Unlike the original utility, it supports mapping softkeys to keystrokes or macros as well as launching URLs, and it even supports command-line arguments for launched programs.  The on-screen display also doesn't delay invocation of the command, URL or hotkey: it runs in parallel so you don't have to wait for it to disappear before anything else happens.
 
-The OSD is also at least as configurable as the original utiltity's version, and can be disabled altogether or configured not to show anything for specific softkeys.
+The OSD is also at least as configurable as the original utility's version, and can be disabled altogether or configured not to show anything for specific softkeys.
 
 Note: this utility has only been tested with the one specific keyboard model, but it *might* work for you anyway if your keyboard has similar buttons and knobs; see also the "Different keyboard?" section below for porting notes.
 
@@ -14,9 +16,9 @@ My wife and I both have used this particular keyboard since Windows 98 was still
 
 Unfortunately, you can't use ordinary keyboard remapping software for its various special buttons (Eject, media keys, the internet/multimedia buttons, Find/Print/Fax, HP, Shortcuts, Help): the only ones that use stock keyboard scan codes are the volume knob and mute button. (So HPKeys doesn't touch those.)
 
-Everything else is just raw HID reports on a vendor-defined HID collection (usage page `0xFF7F`) that Windows' keyboard stack silently ignores.
+Everything else is just raw HID reports on a vendor-defined HID collection (usage page `0xFF7F`) that Windows' keyboard stack just ignores.
 
-The original 2000-ish `C:\hp\kbd\kbd.exe` utility read those reports itself; HPKeys does the same job via the Windows Raw Input API, with a straightforward configuration file inplace of the bizarre maze of GUIDs, plugins, .htm files and whatnot of the old utility.
+The original 2000-ish `C:\hp\kbd\kbd.exe` utility read those reports itself; HPKeys does the same job via the Windows Raw Input API, with a straightforward configuration file in place of the bizarre maze of GUIDs, plugins, .htm files and whatnot of the old utility.
 
 ## Requirements
 
@@ -46,7 +48,7 @@ Each button gets one line in `[Buttons]` with a verb:
 Eject        = eject                        ; open the optical tray (MCI)
 PlayPause    = send {Media_Play_Pause}      ; AHK Send syntax: {Media_Next}, #e, ^p
 Shopping     = run https://www.amazon.com
-Search       = url https://www.gooogle.com  ; url and run are aliases
+Search       = url https://www.google.com   ; url and run are aliases
 Shortcut1    = run notepad.exe C:\notes.txt ; arguments are supported
 Find         = send #e                      ; Win+E
 ```
@@ -69,3 +71,7 @@ During development, you can run the the uncompiled `HPKeys.ahk` file from within
 ## Different keyboard?
 
 This build is tailored to the SK-2506U (VID `03F0`/PID `020C`) and its exact report format. If you have a **different** multimedia keyboard whose extra buttons are invisible to remapping tools, the capture-and-adapt procedure is in [AGENTS.md](AGENTS.md): read it yourself, or hand that file plus the `hidlog.ahk` script to an AI assistant and let it do the porting.
+
+## Credits
+
+The code in this repo was written almost entirely by GLM 5.2, with me adding occasional fixes/tweaks.  The icon was designed by GLM 5.3 Flash using its vision mode to "see" pictures I gave it of HP keyboards, and it also wrote a .cmd script for turning its SVG drawings into .ico files, which I then ported to bash, because who wants to use .cmd, am I right?  Anyway.  Docs and the default config were originally drafted by GLM 5.2, and then humanized by me as much as possible.  It's sort of weird to have a Github repo consisting mostly of code I didn't write, but that's today's world I guess!
